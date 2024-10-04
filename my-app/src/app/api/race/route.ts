@@ -13,7 +13,7 @@ export async function GET() {
         try {
           const fileContent = fs.readFileSync(path.join(directoryPath, file), 'utf8');
           const fileData = JSON.parse(fileContent);
-          raceData.push(fileData.title);
+          raceData.push(fileData);
         } catch (error) {
           console.error(`ファイル "${file}" の読み込みまたはパース中にエラーが発生しました:`, error);
           throw new Error(`${file} の読み込み中にエラーが発生しました。`);

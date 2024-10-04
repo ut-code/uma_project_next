@@ -1,6 +1,8 @@
 'use client'
-import { useState, useEffect } from 'react';
-import Link from "next/link"
+import { useState, useEffect, AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from 'react';
+import { useRaceContext } from '@/app/context/RaceContext';
+import { div } from 'framer-motion/client';
+import Link from 'next/link';
 import { motion } from "framer-motion"
 import { GraduationCap, ChevronDown } from "lucide-react"
 
@@ -24,12 +26,12 @@ interface horse {
 }
 
 export default function Home() {
-  const [races, setRaces] = useState([]);
+  const { races, setRaces } = useRaceContext();
 
   useEffect(() => {
     const fetchRaceData = async () => {
       try {
-        const response = await fetch('/api/horse');
+        const response = await fetch('/api/race');
         if (!response.ok) {
           throw new Error(`HTTPのエラー: ${response.status}`);
         }
@@ -103,11 +105,17 @@ export default function Home() {
             <div className="text-2xl font-bold text-gray-800 mb-4">馬一覧</div>
             <div>
       {races.length > 0 ? (
-          races.map((raceData: horse, index) => (
+          races.map((raceData, index) => (
             <div className="p-3 border rounded-lg shadow-md bg-gray-100 max-w-lg mx-auto">
-
+              
             <div key={index}>
-              <p>{raceData.horse}</p>
+              {raceData.horse?.map((horseData: { horse: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; }, horseIndex: Key | null | undefined) => (
+                <div key={horseIndex}>
+                  <Link href={`/info/horse/${index}?horseId=${horseIndex}`}>
+                    {horseData.horse}
+                  </Link>
+                </div>
+              ))}
             </div>
 
             </div>

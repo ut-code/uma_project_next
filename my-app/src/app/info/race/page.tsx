@@ -1,12 +1,12 @@
 'use client'
-
-import Link from "next/link"
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRaceContext } from '@/app/context/RaceContext';
 import { motion } from "framer-motion"
 import { GraduationCap, ChevronDown } from "lucide-react"
 
 export default function Home() {
-  const [races, setRaces] = useState([]);
+  const { races, setRaces } = useRaceContext();
 
   useEffect(() => {
     const fetchRaceData = async () => {
@@ -26,8 +26,7 @@ export default function Home() {
     fetchRaceData();
   }, []);
 
-  return (
-    
+  return (    
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-600 to-blue-500">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -89,7 +88,11 @@ export default function Home() {
                   
                     <div className="p-3 border rounded-lg shadow-md bg-gray-100 max-w-lg mx-auto">
                       <div key={index}>
-                      <p className="text-lg text-gray-800">{raceData}</p>
+                        <p className="text-lg text-gray-800">
+                         <Link href={`/info/race/${index}`}>
+                          {raceData.title}
+                         </Link>
+                        </p>
                       </div>
                     </div>
                 ))
