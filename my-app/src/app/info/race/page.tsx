@@ -1,8 +1,11 @@
 'use client'
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRaceContext } from '@/app/context/RaceContext';
+
 
 export default function Home() {
-  const [races, setRaces] = useState([]);
+  const { races, setRaces } = useRaceContext();
 
   useEffect(() => {
     const fetchRaceData = async () => {
@@ -28,7 +31,9 @@ export default function Home() {
       {races.length > 0 ? (
           races.map((raceData, index) => (
             <div key={index}>
-              <p>{raceData}</p>
+              <Link href={`/info/race/${index}`}>
+                {raceData.title}
+              </Link>
             </div>
           ))
         ) : (
