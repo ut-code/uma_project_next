@@ -1,5 +1,8 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from 'react';
+import { useRaceContext } from '@/app/context/RaceContext';
+import { div } from 'framer-motion/client';
+import Link from 'next/link';
 
 interface horse {
   rank?: number;
@@ -20,12 +23,12 @@ interface horse {
 }
 
 export default function Home() {
-  const [races, setRaces] = useState([]);
+  const { races, setRaces } = useRaceContext();
 
   useEffect(() => {
     const fetchRaceData = async () => {
       try {
-        const response = await fetch('/api/horse');
+        const response = await fetch('/api/race');
         if (!response.ok) {
           throw new Error(`HTTPのエラー: ${response.status}`);
         }
@@ -44,9 +47,15 @@ export default function Home() {
     <div>
       <div>
       {races.length > 0 ? (
-          races.map((raceData: horse, index) => (
+          races.map((raceData, index) => (
             <div key={index}>
-              <p>{raceData.horse}</p>
+              {raceData.horse?.map((horseData: { horse: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; }, horseIndex: Key | null | undefined) => (
+                <div key={horseIndex}>
+                  <Link href={`/info/horse/${index}?horseId=${horseIndex}`}>
+                    {horseData.horse}
+                  </Link>
+                </div>
+              ))}
             </div>
           ))
         ) : (
