@@ -5,6 +5,7 @@ import { div } from 'framer-motion/client';
 import Link from 'next/link';
 import { motion } from "framer-motion"
 import { GraduationCap, ChevronDown } from "lucide-react"
+import { Flag, Link as LinkIcon } from "lucide-react"
 
 
 interface horse {
