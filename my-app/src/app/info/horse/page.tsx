@@ -7,7 +7,6 @@ import { motion } from "framer-motion"
 import { GraduationCap, ChevronDown } from "lucide-react"
 import { Flag, Link as LinkIcon } from "lucide-react"
 
-
 interface horse {
   rank?: number;
   wake?: string;
@@ -24,6 +23,11 @@ interface horse {
   trainer?: string;
   pop?: string;
   corner?: object;
+}
+
+interface horseData {
+  horse: string;
+  // 他の必要なプロパティを追加
 }
 
 export default function Home() {
@@ -95,38 +99,50 @@ export default function Home() {
           <p className="text-lg font-semibold">Learn More About The Horses</p>
         </motion.div>
   
-       
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
-          className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl w-full mx-4"
-        >
-          <div>
-            <div className="text-2xl font-bold text-gray-800 mb-4">馬一覧</div>
-            <div>
-      {races.length > 0 ? (
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1, duration: 0.5 }}
+      className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-3xl w-full mx-auto"
+    >
+      <h2 className="text-3xl font-bold text-white mb-6 text-center">馬一覧</h2>
+      <div className="space-y-6">
+        {races.length > 0 ? (
           races.map((raceData, index) => (
-            <div className="p-3 border rounded-lg shadow-md bg-gray-100 max-w-lg mx-auto">
-              
-            <div key={index}>
-              {raceData.horse?.map((horseData: { horse: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; }, horseIndex: Key | null | undefined) => (
-                <div key={horseIndex}>
-                  <Link href={`/info/horse/${index}?horseId=${horseIndex}`}>
-                    {horseData.horse}
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * index, duration: 0.5 }}
+              className="p-4 rounded-lg shadow-md bg-white bg-opacity-20 backdrop-blur-sm"
+            >
+              <h3 className="text-xl font-semibold text-white mb-3">馬情報{index + 1}</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {raceData.horse?.map((horseData:horseData, horseIndex:number) => (
+                  <Link
+                    key={horseIndex}
+                    href={`/info/horse/${index}?horseId=${horseIndex}`}
+                    className="flex items-center p-2 rounded-md bg-purple-600 bg-opacity-50 hover:bg-opacity-70 transition-colors duration-200"
+                  >
+                    <span className="text-white text-sm font-medium truncate">
+                      {horseData.horse}
+                    </span>
                   </Link>
-                </div>
-              ))}
-            </div>
-
-            </div>
+                ))}
+              </div>
+            </motion.div>
           ))
         ) : (
-          <p>データを読み込み中...</p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-white text-lg"
+          >
+            データを読み込み中...
+          </motion.p>
         )}
       </div>
-        </div>
-          </motion.div>
+    </motion.div>
       
     </div>
   )

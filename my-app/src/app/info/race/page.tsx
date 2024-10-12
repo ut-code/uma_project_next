@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRaceContext } from '@/app/context/RaceContext';
 import { motion } from "framer-motion"
 import { GraduationCap, ChevronDown } from "lucide-react"
-
+import { Flag } from "lucide-react"
 export default function Home() {
   const { races, setRaces } = useRaceContext();
 
@@ -74,34 +74,47 @@ export default function Home() {
         </motion.div>
   
        
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
-          className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl w-full mx-4"
-        >
-          <div>
-            <div className="text-2xl font-bold text-gray-800 mb-4">レース一覧</div>
-          <div>
-            {races.length > 0 ? (
-                races.map((raceData, index) => (
-                  
-                    <div className="p-3 border rounded-lg shadow-md bg-gray-100 max-w-lg mx-auto">
-                      <div key={index}>
-                        <p className="text-lg text-gray-800">
-                         <Link href={`/info/race/${index}`}>
-                          {raceData.title}
-                         </Link>
-                        </p>
-                      </div>
-                    </div>
-                ))
-              ) : (
-                <p>データを読み込み中...</p>
-              )}
+
+          <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1, duration: 0.5 }}
+      className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl w-full mx-4"
+    >
+      <div>
+        <h2 className="text-3xl font-bold text-white mb-6">レース一覧</h2>
+        <div className="space-y-4">
+          {races && races.length > 0 ? (
+            races.map((raceData, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index, duration: 0.5 }}
+                className="p-4 border border-purple-300 rounded-lg shadow-md bg-white bg-opacity-20 backdrop-blur-sm hover:bg-opacity-30 transition-all duration-300"
+              >
+                <Link href={`/info/race/${index}`} className="block">
+                  <div className="flex items-center space-x-3">
+                    <Flag className="w-5 h-5 text-purple-300" />
+                    <p className="text-lg font-semibold text-white">
+                      {raceData.title}
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+            ))
+          ) : (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center text-white text-lg"
+            >
+              データを読み込み中...
+            </motion.p>
+          )}
         </div>
-        </div>
-          </motion.div>
+      </div>
+    </motion.div>
       </div>)
 }
 
