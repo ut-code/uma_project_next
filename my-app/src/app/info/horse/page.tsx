@@ -4,7 +4,7 @@ import { useRaceContext } from '@/app/context/RaceContext';
 import { div } from 'framer-motion/client';
 import Link from 'next/link';
 import { motion } from "framer-motion"
-import { GraduationCap, ChevronDown } from "lucide-react"
+import { Activity, ArrowDown, HomeIcon } from "lucide-react"
 import { Flag, Link as LinkIcon } from "lucide-react"
 
 interface horse {
@@ -52,23 +52,31 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-600 to-blue-500">
-
+    <div>
+    <div className="fixed top-4 left-4"> {/* 画面の左上に固定 */}
+      <Link href="/" className="text-gray-800 hover:text-blue-600"> {/* ホームページへのリンク */}
+        <HomeIcon className="w-8 h-8" /> {/* アイコンのサイズ設定 */}
+      </Link>
+    </div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-l from-green-900 to-green-600">
+          <br></br>
+          <br></br>
               <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center p-8 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-2xl max-w-2xl w-full mx-4"
+          className="text-center p-10 bg-black bg-opacity-30 backdrop-blur-lg rounded-xl max-w-xl w-full mx-4"
         >
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 20 }}
-          >
-            <GraduationCap className="w-16 h-16 mx-auto text-white mb-6" />
-          </motion.div>
+           initial={{ scale: 0 }}
+           animate={{ scale: 1 }}
+           transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 20 }}
+         >
+           <Activity className="w-20 h-20 mx-auto text-white mb-6" />
+         </motion.div>
           <motion.h1 
             className="text-4xl md:text-5xl font-bold text-white mb-6"
+            
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
@@ -82,7 +90,7 @@ export default function Home() {
           >
             <Link 
               href="/info" 
-              className="inline-block px-6 py-3 text-lg font-semibold text-purple-600 bg-white rounded-full hover:bg-purple-100 transition-colors duration-300 shadow-md hover:shadow-lg"
+              className="flex justify-center items-center text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 w-1/2 mx-auto transition transform hover:scale-105"
             >
               Go back to the Info Page
             </Link>
@@ -95,8 +103,8 @@ export default function Home() {
           transition={{ delay: 0.7, duration: 0.5 }}
           className="mt-8 text-white text-center"
         >
-          <ChevronDown className="w-6 h-6 mx-auto mb-4 animate-bounce" />
-          <p className="text-lg font-semibold">Learn More About The Horses</p>
+          <ArrowDown className="w-8 h-8 mx-auto" />
+                    <p className="text-lg font-semibold">Learn More About The Horses</p>
         </motion.div>
   
         <motion.div
@@ -122,7 +130,7 @@ export default function Home() {
                   <Link
                     key={horseIndex}
                     href={`/info/horse/${index}?horseId=${horseIndex}`}
-                    className="flex items-center p-2 rounded-md bg-purple-600 bg-opacity-50 hover:bg-opacity-70 transition-colors duration-200"
+                    className="flex items-center p-2 rounded-md  bg-opacity-50 hover:bg-opacity-70 transition-colors duration-200"
                   >
                     <span className="text-white text-sm font-medium truncate">
                       {horseData.horse}
@@ -144,6 +152,7 @@ export default function Home() {
       </div>
     </motion.div>
       
+    </div>
     </div>
   )
 }

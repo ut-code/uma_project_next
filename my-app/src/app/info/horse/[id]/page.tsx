@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from "framer-motion"
-import { GraduationCap, ChevronDown, Flag, User, Clock, Scale, Trophy } from "lucide-react"
+import {HomeIcon, Activity, ArrowDown, Flag, User, Clock, Scale, Trophy } from "lucide-react"
 
 export default function Race({params}: {params: {id: number}}) {
   const { races, setRaces } = useRaceContext();
@@ -34,20 +34,30 @@ export default function Race({params}: {params: {id: number}}) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-600 to-blue-500 py-12">
+    <div>
+    
+    
+    <div className="fixed top-4 left-4"> {/* 画面の左上に固定 */}
+      <Link href="/" className="text-gray-800 hover:text-blue-600"> {/* ホームページへのリンク */}
+        <HomeIcon className="w-8 h-8" /> {/* アイコンのサイズ設定 */}
+      </Link>
+    </div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-l from-green-900 to-green-600">
+    <br></br>
+    <br></br>
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center p-8 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-2xl max-w-2xl w-full mx-4 mb-8"
-      >
+        className="text-center p-10 bg-black bg-opacity-30 backdrop-blur-lg rounded-xl max-w-xl w-full mx-4"
+ >
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 20 }}
-        >
-          <GraduationCap className="w-16 h-16 mx-auto text-white mb-6" />
-        </motion.div>
+           initial={{ scale: 0 }}
+           animate={{ scale: 1 }}
+           transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 20 }}
+         >
+           <Activity className="w-20 h-20 mx-auto text-white mb-6" />
+         </motion.div>
         <motion.h1 
           className="text-4xl md:text-5xl font-bold text-white mb-6"
           initial={{ opacity: 0 }}
@@ -63,7 +73,7 @@ export default function Race({params}: {params: {id: number}}) {
         >
           <Link 
             href="/info/horse" 
-            className="inline-block px-6 py-3 text-lg font-semibold text-purple-600 bg-white rounded-full hover:bg-purple-100 transition-colors duration-300 shadow-md hover:shadow-lg"
+            className="flex justify-center items-center text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 w-1/2 mx-auto transition transform hover:scale-105"
           >
             Go back to the Horse Page
           </Link>
@@ -71,14 +81,14 @@ export default function Race({params}: {params: {id: number}}) {
       </motion.div>
       
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7, duration: 0.5 }}
-        className="mb-8 text-white text-center"
-      >
-        <ChevronDown className="w-6 h-6 mx-auto mb-4 animate-bounce" />
-        <p className="text-lg font-semibold">Learn More About The Horse</p>
-      </motion.div>
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.5 }}
+          className="mt-8 text-white text-center"
+        >
+          <ArrowDown className="w-8 h-8 mx-auto" />
+                    <p className="text-lg font-semibold">Learn More About The Horses</p>
+        </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -89,15 +99,15 @@ export default function Race({params}: {params: {id: number}}) {
         <h2 className="text-3xl font-bold text-white mb-6 text-center">{race.title}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-4">
-            <InfoItem icon={Flag} label="コース" value={race.course} />
+            <InfoItem  label="コース" value={race.course} />
             <InfoItem  label="馬名" value={horse.horse} />
-            <InfoItem icon={Trophy} label="着順" value={horse.rank} />
-            <InfoItem icon={User} label="騎手名" value={horse.jockey} />
-            <InfoItem icon={User} label="調教師名" value={horse.trainer} />
-            <InfoItem icon={Clock} label="タイム" value={horse.time} />
+            <InfoItem  label="着順" value={horse.rank} />
+            <InfoItem  label="騎手名" value={horse.jockey} />
+            <InfoItem  label="調教師名" value={horse.trainer} />
+            <InfoItem  label="タイム" value={horse.time} />
           </div>
           <div className="space-y-4">
-            <InfoItem icon={Scale} label="負担重量" value={`${horse.weight}kg`} />
+            <InfoItem  label="負担重量" value={`${horse.weight}kg`} />
             <InfoItem label="枠" value={horse.waku} />
             <InfoItem label="馬番" value={horse.umaban} />
             <InfoItem label="性齢" value={horse.age} />
@@ -115,12 +125,13 @@ export default function Race({params}: {params: {id: number}}) {
             href={race.url} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-block px-6 py-3 text-lg font-semibold text-white bg-purple-600 rounded-full hover:bg-purple-700 transition-colors duration-300 shadow-md hover:shadow-lg"
+            className="inline-block px-6 py-3 text-lg font-semibold text-white bg-green-800 rounded-full hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg"
           >
             詳細を見る
           </a>
         </div>
       </motion.div>
+    </div>
     </div>
   )
 }
