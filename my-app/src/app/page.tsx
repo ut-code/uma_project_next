@@ -77,13 +77,20 @@ export default function HomePage() {
   initial={{ opacity: 0, y: 0 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ delay: 0.5, duration: 0.5 }}
-  className="text-center"
+  className="text-center p-4"
 >
   <Link 
     href="/info" 
-    className="text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105"
+    className=" text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105"
     >
     Info Page
+  </Link>
+  
+  <Link 
+    href="/game" 
+    className="text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105"
+    >
+    Game Page
   </Link>
 </motion.div>
 
