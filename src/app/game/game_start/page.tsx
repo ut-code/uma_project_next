@@ -70,17 +70,35 @@ export default function gameStartPage() {
        </motion.div>
             <div>
             <div>
+              <br></br>
+              <div className="text-xl md:text-2xl font-bold text-white mb-4"
+              >以下のレースデータをもとに予測を行ってください！</div>
               { randomRaceData.length > 0 ? (
                 randomRaceData.map((raceData, index) => (
                   <div key={index}>
-                    <p>{raceData.title}</p>
-                    <p>{raceData.course}</p>
-                    <a href={raceData.url}>{raceData.url}</a>
+                    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 10}}
+      transition={{ delay: 1, duration: 0.5 }}
+      className="mt-4 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-3xl  mx-4"
+    >
+                    <p className="text-4xl md:text-2xl font-bold text-white mb-4"
+                    >{raceData.title}</p>
+                    <p className="text-4xl md:text-xl font-bold text-white mb-4"
+                    >{raceData.course}</p>
+                    <a href={raceData.url} className="text-blue-300 hover:text-blue-100 underline transition-colors duration-200">{raceData.url}</a>
+                    </motion.div>
                     <div>
         {raceData.horse.map((horse:any, index:any) => (
-          <div key={index} style={{ border: "1px solid #ccc", marginBottom: "10px", padding: "10px" }}>
-            <h3>{horse.horse}</h3>
-            <p>順位: {horse.rank}</p>
+          <div key={index} >
+          <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.5 }}
+          className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl  mx-4"
+        >
+                      <h3>{horse.horse}</h3>
+                        
             <p>枠: {horse.waku}</p>
             <p>馬番: {horse.umaban}</p>
             <p>年齢: {horse.age}</p>
@@ -93,8 +111,8 @@ export default function gameStartPage() {
             <p>上がり3Fタイム: {horse.f_time}</p>
             <p>調教師: {horse.trainer}</p>
             <p>人気: {horse.pop}</p>
-            <p>コーナー通過順: {horse.corner.join(" - ")}</p>
-          </div>
+            </motion.div>
+                      </div>
         ))}
       </div>
                   </div>
@@ -105,14 +123,59 @@ export default function gameStartPage() {
             </div>
             </div>
             <div>
+            
                 予想入力欄
             </div>
             <div>
-                結果表示欄(概説)
+                結果表示欄(概説 スコア,AIの予測, それぞれの予測の一致率)
             </div>
             <div>
-                結果表示欄(詳細)
+            <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-l from-green-900 to-green-600">
+       <br></br>
+       <br></br>
+       <motion.div 
+         initial={{ opacity: 0, y: 0 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{ duration: 0.3 }}
+         className="text-center p-6 sm:p-8 bg-black bg-opacity-30 backdrop-blur-lg rounded-xl max-w-lg sm:max-w-2xl w-full mx-4"
+       >
+                予測入力のボタンが押されたらこれが表示されるようにしたい
+                { randomRaceData.length > 0 ? (
+                randomRaceData.map((raceData, index) => (
+                  <div key={index}>
+                    
+                    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 10}}
+      transition={{ delay: 1, duration: 0.5 }}
+      className="mt-4 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-3xl  mx-4"
+    >
+                    <p className="text-4xl md:text-2xl font-bold text-white mb-4"
+                    >{raceData.title}</p>
+                    <p className="text-4xl md:text-xl font-bold text-white mb-4"
+                    >{raceData.course}</p>
+                    <a href={raceData.url} className="text-blue-300 hover:text-blue-100 underline transition-colors duration-200">{raceData.url}</a>
+                    </motion.div>
+                    
+                    <div>
+        {raceData.horse.map((horse:any, index:any) => (
+          <div key={index} style={{ border: "1px solid #ccc", marginBottom: "10px", padding: "10px" }}>
+            <h3 className="text-xl md:text-xl font-bold text-white mb-4"
+            >{horse.horse}</h3>
+            <p className="text-xl md:text-xl font-bold text-white mb-4"
+            >順位: {horse.rank}</p>            
+                      </div>
+        ))}
+        </div>
+                  </div>
+                ))
+              ) : (
+                <p>データを読み込み中...</p>
+              )}
+              </motion.div>
             </div>
+            </div>
+            
             <Link 
                 href="/game" 
                 className="text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105"
