@@ -138,6 +138,7 @@ export default function gameStartPage() {
           </motion.div>
           <br></br>
           <br></br>
+          <br></br>
           {/* </div> */}
           <motion.div
             initial={{ opacity: 0, y: 0 }}
