@@ -71,7 +71,7 @@ export default function Info() {
          ここはインフォメーションページです。以下のリンクから予想に利用した馬やレースについての情報にアクセスすることができます。
          </p>
          <p className="text-white text-lg leading-relaxed mt-4">
-           競馬AIでどのような情報を用いて予想を行なっているか詳しく知りたい場合は上記の"Info Page"からinformationページに飛んでください。
+           競馬AIでどのような情報を用いて予想を行なっているか詳しく知りたい場合は上記の&quot;Info Page&quot;からinformationページに飛んでください。
          </p>
          <p className="text-white text-lg leading-relaxed mt-4">
          <br></br>

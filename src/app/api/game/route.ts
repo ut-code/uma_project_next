@@ -2,6 +2,41 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export type Horse = {
+  rank: string
+  waku: string
+  umaban: number
+  horse: string
+  age: string
+  weight: string
+  jockey: string
+  time: string
+  margin: string
+  h_weight: number
+  h_weight_zougen: number
+  f_time: string
+  trainer: string
+  pop: string
+  corner: number[]
+}
+
+export type Response = {
+  data: {
+    title: string
+    course: string
+    url: string
+    horse: Horse[]
+  }
+  prediction: {
+    title: string
+    url: string
+    horse: {
+      name: string
+      rank: number
+    }[]
+  }
+}
+
 export async function POST() {
   try {
     const directoryPath = path.join(process.cwd(), 'db/jra/');
@@ -21,7 +56,7 @@ export async function POST() {
     return NextResponse.json({
       data: fileContent,
       prediction: predictionContent,
-    });
+    } satisfies Response);
   } catch (error) {
     console.error('API処理中にエラーが発生しました:', error);
     return NextResponse.json({ error: 'データの読み込みに失敗しました。' }, { status: 500 });

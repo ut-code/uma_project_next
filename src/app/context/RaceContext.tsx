@@ -1,9 +1,13 @@
 'use client'
 import { createContext, useState, ReactNode, useContext } from 'react';
 
+interface Race {
+  title: string
+}
+
 interface RaceContextType {
-  races: any[];
-  setRaces: (races: any[]) => void;
+  races: Race[];
+  setRaces: (races: Race[]) => void;
 }
 
 const RaceContext = createContext<RaceContextType | undefined>(undefined);
@@ -17,7 +21,7 @@ export function useRaceContext() {
 }
 
 export function RaceProvider({ children }: { children: ReactNode }) {
-  const [races, setRaces] = useState<any[]>([]);
+  const [races, setRaces] = useState<Race[]>([]);
 
   return (
     <RaceContext.Provider value={{ races, setRaces }}>
