@@ -2,11 +2,36 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+type Horse = {
+  rank: number
+  waku: string
+  umaban: number
+  horse: string
+  age: string
+  weight: string
+  jockey: string
+  time: string
+  margin: string
+  h_weight: number
+  h_weight_zougen: number
+  f_time: string
+  trainer: string
+  pop: string
+  corner: number[]
+}
+
+export type Response = {
+  title: string
+  course: string
+  url: string
+  horse: Horse[]
+}
+
 export async function GET() {
   try {
     const directoryPath = path.join(process.cwd(), 'db/jra/');
     const files = fs.readdirSync(directoryPath);
-    const raceData = [];
+    const raceData: Response[] = [];
     
     for (const file of files) {
       if (file.endsWith('.json')) {

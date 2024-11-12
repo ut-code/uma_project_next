@@ -1,17 +1,10 @@
 "use client";
 
 import Link from "next/link"
-import { HomeIcon, ArrowDown, Activity } from "lucide-react"
+import { Activity, HomeIcon } from "lucide-react"
 import { motion } from "framer-motion"
-import { div, p } from "framer-motion/client";
-import { useEffect, useState } from "react";
 
 export default function Game() {
-
-        
- 
-
-
     return(
         <div>
             <div className="fixed top-4 left-4"> {/* 画面の左上に固定 */}
@@ -73,7 +66,7 @@ export default function Game() {
             className="text-center p-4"
             >
             <Link 
-            href="/game/game_start" 
+            href="/game/playing" 
             className="text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105"
             >
                 Start VS AI

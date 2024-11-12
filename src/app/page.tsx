@@ -63,7 +63,7 @@ export default function HomePage() {
           競馬AIへようこそ。競馬AIは機械学習や人工知能（AI）の技術を利用して、競馬の予測や分析を行うシステムです。競馬は多くの要因（馬の能力、騎手の技術、コースのコンディション、天気など）が結果に影響を与えるため、競馬AIはそれらのデータを分析し、レースの結果を予測します。競馬AIの目的は、従来の人間の経験や勘に依存した予測を補完し、より正確な判断を行うことです。
         </p>
         <p className="text-white text-lg leading-relaxed mt-4">
-          競馬AIでどのような情報を用いて予想を行なっているか詳しく知りたい場合は上記の"Info Page"からinformationページに飛んでください。
+          競馬AIでどのような情報を用いて予想を行なっているか詳しく知りたい場合は上記の&quot;Info Page&quot;からinformationページに飛んでください。
         </p>
       </motion.div>
       <motion.div
