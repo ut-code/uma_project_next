@@ -63,8 +63,22 @@ export default function Page() {
                     </motion.div>
                     <div>
                         <br></br>
-                        <div className="text-xl md:text-2xl font-bold text-white mb-4"
-                        >以下のレースデータをもとに予測を行ってください！</div>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 10 }}
+                            transition={{ delay: 1, duration: 0.5 }}
+                            className="mt-4 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-3xl  mx-4"
+                        >
+                            <p className="text-xl md:text-2xl font-bold text-white mb-4">ルール説明</p>
+                            <p className="text-lg md:text-base font-bold text-white mb-4">HPがゼロになるまでAI相手と予想勝負をしてもらいます。</p>
+                            <p className="text-lg md:text-base font-bold text-white mb-4">あなたとAIそれぞれに1位2位3位を予想してもらいます。</p>
+                            <p className="text-lg md:text-base font-bold text-white mb-4">ポイント配分は1つあっていた場合5pt、2つは8pt、3つあっていた場合は18ptです。</p>
+                            <p className="text-lg md:text-base font-bold text-white mb-4">AIのポイントからあなたのポイントを引いた数をあなたのHPにプラスします。</p>
+                            <p className="text-sm md:text-xs font-bold text-white mb-4">上記の予想勝負をHPをゼロになるまで繰り返えします。</p>
+                            <p className="text-lg md:text-base font-bold text-white mb-4">またこのゲームにはスコア機能がありターンが進むごとにスコアがプラスされます。</p>
+                            <p className="text-lg md:text-base font-bold text-white mb-4">そしてゲーム終了時のスコアがランキング上位だった場合はスコアボードに名前を載せることが出来ます。</p>
+                            <p className="text-3xl md:text-xl font-bold text-white mb-4">ハイスコア目指して頑張ってください!!!!!!!</p>
+                        </motion.div>
                         {(() => {
                             if (!randomRaceData) {
                                 return (<p>データを読み込み中です。</p>)
@@ -77,8 +91,8 @@ export default function Page() {
                                         transition={{ delay: 1, duration: 0.5 }}
                                         className="mt-4 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-3xl  mx-4"
                                     >
-                                    <p className="text-4xl md:text-2xl font-bold text-white mb-4">{randomRaceData.data.title}</p>
-                                    <p className="text-4xl md:text-xl font-bold text-white mb-4">{randomRaceData.data.course}</p>
+                                        <p className="text-4xl md:text-2xl font-bold text-white mb-4">{randomRaceData.data.title}</p>
+                                        <p className="text-4xl md:text-xl font-bold text-white mb-4">{randomRaceData.data.course}</p>
                                         <a href={randomRaceData.data.url} className="text-blue-300 hover:text-blue-100 underline transition-colors duration-200">{randomRaceData.data.url}</a>
                                     </motion.div>
                                     {randomRaceData.data.horse.map((horse, index) => (
@@ -89,19 +103,19 @@ export default function Page() {
                                           transition={{ delay: 1, duration: 0.5 }}
                                           className=" mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl  mx-4"
                                         >
-                                          <h3 className='text-xl font-bold text-white'>{horse.horse}</h3>
-                                          <p>枠: {horse.waku}</p>
-                                          {/* <p>馬番: {horse.umaban}</p> */}
-                                          <p>年齢: {horse.age}</p>
-                                          <p>斤量: {horse.weight}</p>
-                                          <p>騎手: {horse.jockey}</p>
-                                          {/* <p>タイム: {horse.time}</p> */}
-                                          {/* <p>差: {horse.margin || "なし"}</p> */}
-                                          <p>馬体重: {horse.h_weight}kg</p>
-                                          {/* <p>増減: {horse.h_weight_zougen}kg</p> */}
-                                          {/* <p>上がり3Fタイム: {horse.f_time}</p> */}
-                                          <p>調教師: {horse.trainer}</p>
-                                          <p>人気: {horse.pop}</p>
+                                            <h3 className='text-xl font-bold text-white'>{horse.horse}</h3>
+                                            <p>枠: {horse.waku}</p>
+                                            {/* <p>馬番: {horse.umaban}</p> */}
+                                            <p>年齢: {horse.age}</p>
+                                            <p>斤量: {horse.weight}</p>
+                                            <p>騎手: {horse.jockey}</p>
+                                            {/* <p>タイム: {horse.time}</p> */}
+                                            {/* <p>差: {horse.margin || "なし"}</p> */}
+                                            <p>馬体重: {horse.h_weight}kg</p>
+                                            {/* <p>増減: {horse.h_weight_zougen}kg</p> */}
+                                            {/* <p>上がり3Fタイム: {horse.f_time}</p> */}
+                                            <p>調教師: {horse.trainer}</p>
+                                            <p>人気: {horse.pop}</p>
                                         </motion.div>
                                       </div>
                                     ))}
