@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 export type Horse = {
-  rank: string
+  rank: number
   waku: string
   umaban: number
   horse: string
