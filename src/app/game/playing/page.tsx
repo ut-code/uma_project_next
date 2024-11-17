@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Activity, HomeIcon, Link } from "lucide-react";
+import { Activity, HomeIcon } from "lucide-react";
 import { motion } from "framer-motion"
+import Link from "next/link"
 
 import type { Response } from "@/app/api/game/route";
 
