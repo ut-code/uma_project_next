@@ -46,11 +46,15 @@ export default function Game() {
          transition={{ delay: 1, duration: 0.5 }}
          className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl w-full mx-4"
        >
-         <h2 className="text-2xl font-bold text-white mb-4">ルール説明</h2>
-         <p className="text-white text-lg leading-relaxed">
-                  </p>ここにルールを書く、以下からゲームへ
-         <p className="text-white text-lg leading-relaxed mt-4">      
-        </p>
+        <h2 className="text-2xl font-bold text-white mb-4">ルール説明</h2>
+        <p className="text-lg md:text-base font-bold text-white mb-4">HPがゼロになるまでAI相手と予想勝負をしてもらいます。</p>
+        <p className="text-lg md:text-base font-bold text-white mb-4">あなたとAIそれぞれに1位2位3位を予想してもらいます。</p>
+        <p className="text-lg md:text-base font-bold text-white mb-4">ポイント配分は1つあっていた場合5pt、2つは8pt、3つあっていた場合は18ptです。</p>
+        <p className="text-lg md:text-base font-bold text-white mb-4">AIのポイントからあなたのポイントを引いた数をあなたのHPにプラスします。</p>
+        <p className="text-sm md:text-xs font-bold text-white mb-4">上記の予想勝負をHPをゼロになるまで繰り返えします。</p>
+        <p className="text-lg md:text-base font-bold text-white mb-4">またこのゲームにはスコア機能がありターンが進むごとにスコアがプラスされます。</p>
+        <p className="text-lg md:text-base font-bold text-white mb-4">そしてゲーム終了時のスコアがランキング上位だった場合はスコアボードに名前を載せることが出来ます。</p>
+        <p className="text-3xl md:text-xl font-bold text-white mb-4">ハイスコア目指して頑張ってください!!!!!!!</p>
        </motion.div>
             
        <motion.div
