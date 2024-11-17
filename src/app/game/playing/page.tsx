@@ -4,14 +4,21 @@ import { Activity, HomeIcon } from "lucide-react";
 import { motion } from "framer-motion"
 import Link from "next/link"
 
-import type { Response } from "@/app/api/game/route";
+import type { Horse, Response } from "@/app/api/game/route";
 
 export default function Page() {
     const [randomRaceData, setRandomRaceData] = useState<Response>()
     const [hp] = useState(20);
+    const [userPt, setUserPt] = useState(0);
+    const [aiPt, setAiPt] = useState(0);
+    const [aiPredictionResult, setAiPredictionResult] = useState(false);
+    const [answer, setAnswer] = useState(false);
     const [first, setFirst] = useState("");
     const [second, setSecond] = useState("");
     const [third, setThird] = useState("");
+    const [aiFirst, setAiFirst] = useState("");
+    const [aiSecond, setAiSecond] = useState("");
+    const [aiThird, setAiThird] = useState("");
 
     useEffect(() => {
         const fetchRandomRaceData = async () => {
@@ -23,25 +30,62 @@ export default function Page() {
                     throw new Error(`HTTPのエラー: ${response.status}`);
                 }
                 const res: Response = await response.json();
-                const { data } = res;
+                const { prediction } = res;
                 setRandomRaceData(res);
-                setFirst(data.horse[0].horse ?? "");
-                setSecond(data.horse[1].horse ?? "");
-                setThird(data.horse[2].horse ?? "");
+
+                setAiFirst(prediction.horse[0].name ?? "")
+                setAiSecond(prediction.horse[1].name ?? "")
+                setAiThird(prediction.horse[2].name ?? "")
             } catch (error) {
                 console.error('データの取得に失敗しました:', error);
             }
         };
     
         fetchRandomRaceData();
-    }, []);    
+    }, []);
+
+    function getTop3(horses: Horse[]) {
+        const result = ["", "", ""];
+        for (const horse of horses) {
+            if (horse.rank >= 3) {
+                result[horse.rank -1] = horse.horse;
+            }
+        }
+        return result;
+    }
+    function getPT(f: string, s: string, t: string) {
+        if (!randomRaceData) {
+            alert("データが読み込まれていません")
+            return 0;
+        }
+        let pt = 0;
+        const top3 = getTop3(randomRaceData.data.horse);
+        const same: string[] = [];
+        if (top3[0] === f) same.push(f)
+        if (top3[1] === s) same.push(s)
+        if (top3[2] === t) same.push(t)
+        switch (same.length) {
+            case 3:
+                pt += 10;
+            case 2:
+                pt += 5;
+            case 1:
+                pt += 3;
+        }
+        return pt
+    }
 
     function viewResult() {
         if (!randomRaceData) {
             alert("データが読み込まれていません")
             return;
         }
-        console.log(first, second, third)
+        setAiPredictionResult(true);
+        setAnswer(true);
+        const ai = getPT(aiFirst, aiSecond, aiThird);
+        const user = getPT(first, second, third);
+        setAiPt(ai);
+        setUserPt(user);
     };
 
     return (
@@ -149,6 +193,7 @@ export default function Page() {
                                                 <div>
                                                     <p>1位</p>
                                                     <select value={first} onChange={e => setFirst(e.target.value)}>
+                                                        <option value="">選択してください</option>
                                                         {randomRaceData.data.horse.map((horse, _index) => (
                                                             <option key={_index} value={horse.horse}>{horse.horse}</option>
                                                         ))}
@@ -157,6 +202,7 @@ export default function Page() {
                                                 <div>
                                                     <p>2位</p>
                                                     <select value={second} onChange={e => setSecond(e.target.value)}>
+                                                        <option value="">選択してください</option>
                                                         {randomRaceData.data.horse.map((horse, _index) => (
                                                             <option key={_index} value={horse.horse}>{horse.horse}</option>
                                                         ))}
@@ -165,13 +211,14 @@ export default function Page() {
                                                 <div>
                                                     <p>3位</p>
                                                     <select value={third} onChange={e => setThird(e.target.value)}>
+                                                        <option value="">選択してください</option>
                                                         {randomRaceData.data.horse.map((horse, _index) => (
                                                             <option key={_index} value={horse.horse}>{horse.horse}</option>
                                                         ))}
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div>
+                                            <div className="mt-3">
                                                 <button
                                                     className="text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105"
                                                     onClick={viewResult}
@@ -183,14 +230,24 @@ export default function Page() {
                                         initial={{ opacity: 0, y: 0 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.3 }}
-                                        className="text-center p-10 bg-white bg-opacity-20 mt-6 backdrop-blur-lg rounded-xl max-w-2xl w-full mx-4"
+                                        className={`text-center p-10 bg-white bg-opacity-20 mt-6 backdrop-blur-lg rounded-xl max-w-2xl w-full mx-4 ${aiPredictionResult ? "block" : "hidden"}`}
                                     >
                                         <div>
-                                            結果表示欄(概説 スコア,AIの予測, それぞれの予測の一致率)
+                                            <h1>AI予想結果</h1>
+                                            <div>
+                                                <p>1位: {aiFirst}</p>
+                                                <p>2位: {aiSecond}</p>
+                                                <p>3位: {aiThird}</p>
+                                            </div>
+                                            <h1>ポイント</h1>
+                                            <div>
+                                                <p>AIのポイント: {aiPt}</p>
+                                                <p>Userのポイント: {userPt}</p>
+                                            </div>
                                         </div>
                                     </motion.div>
                 
-                                    <div id="result" className="hidden">
+                                    <div className={answer ? "block" : "hidden"}>
                                         <motion.div
                                             initial={{ opacity: 0, y: 0 }}
                                             animate={{ opacity: 1, y: 0 }}
@@ -224,7 +281,7 @@ export default function Page() {
                                     </div>
                                     <br />
                                     <Link
-                                        href="/game"
+                                        href="/game/playing"
                                         className="max-w-xl w-full text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105 mt-5"
                                     >
                                         次へ進む
