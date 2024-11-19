@@ -160,7 +160,7 @@ export default function Page() {
                                                 <p className="text-4xl md:text-xl font-bold text-white mb-4">{randomRaceData.data.course}</p>
                                                 <a href={randomRaceData.data.url} className="text-blue-300 hover:text-blue-100 underline transition-colors duration-200">{randomRaceData.data.url}</a>
                                             </motion.div>
-                                            {randomRaceData.data.horse.map((horse, _index) => {
+                                            {randomRaceData.data.horse.sort((a, b) => a.umaban - b.umaban).map((horse, _index) => {
                                                 return (
                                                     <div key={_index} >
                                                         <motion.div
@@ -205,7 +205,7 @@ export default function Page() {
                                                     <p>1位</p>
                                                     <select value={first} onChange={e => setFirst(e.target.value)}>
                                                         <option value="">選択してください</option>
-                                                        {randomRaceData.data.horse.map((horse, _index) => (
+                                                        {randomRaceData.data.horse.sort((a, b) => a.umaban - b.umaban).map((horse, _index) => (
                                                             <option key={_index} value={horse.horse}>{horse.horse}</option>
                                                         ))}
                                                     </select>
@@ -214,7 +214,7 @@ export default function Page() {
                                                     <p>2位</p>
                                                     <select value={second} onChange={e => setSecond(e.target.value)}>
                                                         <option value="">選択してください</option>
-                                                        {randomRaceData.data.horse.map((horse, _index) => (
+                                                        {randomRaceData.data.horse.sort((a, b) => a.umaban - b.umaban).map((horse, _index) => (
                                                             <option key={_index} value={horse.horse}>{horse.horse}</option>
                                                         ))}
                                                     </select>
@@ -223,7 +223,7 @@ export default function Page() {
                                                     <p>3位</p>
                                                     <select value={third} onChange={e => setThird(e.target.value)}>
                                                         <option value="">選択してください</option>
-                                                        {randomRaceData.data.horse.map((horse, _index) => (
+                                                        {randomRaceData.data.horse.sort((a, b) => a.umaban - b.umaban).map((horse, _index) => (
                                                             <option key={_index} value={horse.horse}>{horse.horse}</option>
                                                         ))}
                                                     </select>
