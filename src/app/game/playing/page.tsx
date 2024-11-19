@@ -47,7 +47,7 @@ export default function Page() {
     function getTop3(horses: Horse[]) {
         const result = ["", "", ""];
         for (const horse of horses) {
-            if (horse.rank >= 3) {
+            if (horse.rank <= 3) {
                 result[horse.rank -1] = horse.horse;
             }
         }
@@ -80,12 +80,12 @@ export default function Page() {
             alert("データが読み込まれていません")
             return;
         }
-        setAiPredictionResult(true);
-        setAnswer(true);
         const ai = getPT(aiFirst, aiSecond, aiThird);
         const user = getPT(first, second, third);
         setAiPt(ai);
         setUserPt(user);
+        setAiPredictionResult(true);
+        setAnswer(true);
     };
 
     return (
