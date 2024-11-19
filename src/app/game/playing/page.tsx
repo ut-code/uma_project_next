@@ -8,7 +8,7 @@ import type { Horse, Response } from "@/app/api/game/route";
 
 export default function Page() {
     const [randomRaceData, setRandomRaceData] = useState<Response>()
-    const [hp] = useState(20);
+    const [hp, setHp] = useState(20);
     const [viewInfo, setViewInfo] = useState<string[]>([]);
     const [userPt, setUserPt] = useState(0);
     const [aiPt, setAiPt] = useState(0);
@@ -22,28 +22,28 @@ export default function Page() {
     const [aiThird, setAiThird] = useState("");
 
     useEffect(() => {
-        const fetchRandomRaceData = async () => {
-            try {
-                const response = await fetch('/api/game', {
-                    method: "POST"
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTPのエラー: ${response.status}`);
-                }
-                const res: Response = await response.json();
-                const { prediction } = res;
-                setRandomRaceData(res);
-
-                setAiFirst(prediction.horse[0].name ?? "")
-                setAiSecond(prediction.horse[1].name ?? "")
-                setAiThird(prediction.horse[2].name ?? "")
-            } catch (error) {
-                console.error('データの取得に失敗しました:', error);
-            }
-        };
-    
         fetchRandomRaceData();
     }, []);
+
+    async function fetchRandomRaceData() {
+        try {
+            const response = await fetch('/api/game', {
+                method: "POST"
+            });
+            if (!response.ok) {
+                throw new Error(`HTTPのエラー: ${response.status}`);
+            }
+            const res: Response = await response.json();
+            const { prediction } = res;
+            setRandomRaceData(res);
+
+            setAiFirst(prediction.horse[0].name ?? "")
+            setAiSecond(prediction.horse[1].name ?? "")
+            setAiThird(prediction.horse[2].name ?? "")
+        } catch (error) {
+            console.error('データの取得に失敗しました:', error);
+        }
+    };
 
     function getTop3(horses: Horse[]) {
         const result = ["", "", ""];
@@ -76,6 +76,18 @@ export default function Page() {
         return pt
     }
 
+    function culcHp(): number {
+        const minus = userPt - aiPt;
+        const content = hp - minus;
+        if (content > 20) {
+            return 20;
+        }
+        if (0 > content) {
+            return 0;
+        }
+        return content;
+    }
+
     function viewResult() {
         if (!randomRaceData) {
             alert("データが読み込まれていません")
@@ -85,6 +97,7 @@ export default function Page() {
         const user = getPT(first, second, third);
         setAiPt(ai);
         setUserPt(user);
+        setHp(culcHp());
         setAiPredictionResult(true);
         setAnswer(true);
     };
@@ -250,10 +263,14 @@ export default function Page() {
                                                 <p>2位: {aiSecond}</p>
                                                 <p>3位: {aiThird}</p>
                                             </div>
-                                            <h1>ポイント</h1>
+                                            <h1 className="mt-2">ポイント</h1>
                                             <div>
                                                 <p>AIのポイント: {aiPt}</p>
                                                 <p>Userのポイント: {userPt}</p>
+                                            </div>
+                                            <h1 className="mt-2">結果</h1>
+                                            <div>
+                                                <p>{userPt - aiPt}がHPから引かれます。</p>
                                             </div>
                                         </div>
                                     </motion.div>
