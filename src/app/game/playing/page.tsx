@@ -5,11 +5,14 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 
 import type { Horse, Response } from "@/app/api/game/route";
+import type { RankingApiResponse } from "@/app/api/ranking/route";
 
 export default function Page() {
     const [randomRaceData, setRandomRaceData] = useState<Response>()
     const [hp, setHp] = useState(20);
     const [score, setScore] = useState(0);
+    const [showRankingPanel, setShowRankingPanel] = useState(false);
+    const [username, setUsername] = useState("");
     const [nextStage, setNextStage] = useState(false);
     const [viewInfo, setViewInfo] = useState<string[]>([]);
     const [userPt, setUserPt] = useState(0);
@@ -51,7 +54,7 @@ export default function Page() {
         const result = ["", "", ""];
         for (const horse of horses) {
             if (horse.rank <= 3) {
-                result[horse.rank -1] = horse.horse;
+                result[horse.rank - 1] = horse.horse;
             }
         }
         return result;
@@ -78,8 +81,8 @@ export default function Page() {
         return pt
     }
 
-    function culcHp(): number {
-        const minus = userPt - aiPt;
+    function culcHp(user: number, ai: number): number {
+        const minus = user - ai;
         const content = hp - minus;
         if (content > 20) {
             return 20;
@@ -99,8 +102,8 @@ export default function Page() {
         const user = getPT(first, second, third);
         setAiPt(ai);
         setUserPt(user);
-        setHp(culcHp());
-        setScore(score + userPt);
+        setHp(culcHp(user, ai));
+        setScore(score + user);
 
         setAiPredictionResult(true);
         setAnswer(true);
@@ -117,8 +120,42 @@ export default function Page() {
         }
     }
 
-    function gotoNextStage() {}
-    function end() {}
+    async function gotoNextStage() {
+        if (0 >= hp) {
+            alert("次のステージへ進むことが出来ません");
+            return;
+        }
+        setAiPt(0);
+        setUserPt(0);
+        setAiPredictionResult(false);
+        setAnswer(false);
+        setNextStage(false);
+        await fetchRandomRaceData();
+    }
+
+    async function sendData() {
+        const response = await fetch("/api/ranking", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: username,
+                score,
+            }),
+        });
+        if (response.ok) {
+            const json: RankingApiResponse = await response.json();
+            alert(`あなたは${json.rank}位でした。この画面を閉じるとページが再ロードされます。`)
+            location.href = "/game";
+        } else {
+            alert("上手く送信できませんでした。再度ボタンを押してください。")
+        }
+    }
+
+    function showEndPage() {
+        setShowRankingPanel(true);
+    }
 
     return (
         <div>
@@ -279,11 +316,11 @@ export default function Page() {
                                             </div>
                                             <h1 className="mt-2">結果</h1>
                                             <div>
-                                                <p>{userPt - aiPt}がHPから引かれます。</p>
+                                                <p>残りHPは{hp}です。</p>
                                             </div>
                                         </div>
                                     </motion.div>
-                
+
                                     <div className={answer ? "block" : "hidden"}>
                                         <motion.div
                                             initial={{ opacity: 0, y: 0 }}
@@ -294,10 +331,10 @@ export default function Page() {
                                             <div className="text-white font-bold text-3xl">詳細解答</div>
                                             <div>
                                                 <motion.div
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 10 }}
-                                                transition={{ delay: 1, duration: 0.5 }}
-                                                className="mt-4 p-6 bg-black bg-opacity-20 backdrop-blur-lg rounded-xl shadow-xl max-w-3xl  mx-4"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 10 }}
+                                                    transition={{ delay: 1, duration: 0.5 }}
+                                                    className="mt-4 p-6 bg-black bg-opacity-20 backdrop-blur-lg rounded-xl shadow-xl max-w-3xl  mx-4"
                                                 >
                                                     <p className="text-2xl md:text-2xl font-bold text-white mb-4"
                                                     >{randomRaceData.data.title}</p>
@@ -323,8 +360,12 @@ export default function Page() {
                                         >次のゲームへ進む</button>
                                         <button
                                             className="max-w-xl w-full text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105 mt-5"
-                                            onClick={end}
+                                            onClick={showEndPage}
                                         >ここでゲームをやめる</button>
+                                    </div>
+                                    <div className={`text-center p-6 sm:p-8 bg-black bg-opacity-20 backdrop-blur-lg rounded-xl max-w-lg sm:max-w-2xl w-full mx-4 mt-10 ${showRankingPanel ? "block" : "hidden"}`}>
+                                        <input className="block font-bold text-3xl w-full" value={username} onChange={e => setUsername(e.target.value)} placeholder="ユーザー名を入力してください" type="text" />
+                                        <button className="block max-w-xl w-full text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105 mt-5" onClick={sendData}>ランキング登録</button>
                                     </div>
                                 </div>
                             )

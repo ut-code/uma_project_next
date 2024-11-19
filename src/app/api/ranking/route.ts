@@ -14,6 +14,10 @@ export type Response = Array<{
     score: number
 }>
 
+export type RankingApiResponse = {
+    rank: number
+};
+
 export async function GET() {
     const datas = await db.ranking.findMany({
         orderBy: {
@@ -25,7 +29,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-    const body = structChecker(req.body, _RequestZod);
+    const body = structChecker(await req.json(), _RequestZod);
     if (!body) {
         return NextResponse.json({
             content: "BODY_PARSE_ERR"
@@ -54,5 +58,5 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({
         rank: null,
-    }, { status: 202 })
+    }, { status: 400 })
 }
