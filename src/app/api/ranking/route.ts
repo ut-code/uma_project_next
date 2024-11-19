@@ -1,5 +1,4 @@
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 import { db } from "@/server/database";
@@ -10,6 +9,11 @@ const _RequestZod = z.object({
     score: z.number(),
 })
 
+export type Response = Array<{
+    name: string
+    score: number
+}>
+
 export async function GET() {
     const datas = await db.ranking.findMany({
         orderBy: {
@@ -17,10 +21,10 @@ export async function GET() {
         },
         take: 40,
     });
-    return NextResponse.json(datas, { status: 200 });
+    return NextResponse.json(datas.map(({name, score}) => { return { name, score: Number(score) } }), { status: 200 });
 }
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: NextRequest) {
     const body = structChecker(req.body, _RequestZod);
     if (!body) {
         return NextResponse.json({
