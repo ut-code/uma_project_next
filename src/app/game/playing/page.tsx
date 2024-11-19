@@ -9,6 +9,7 @@ import type { Horse, Response } from "@/app/api/game/route";
 export default function Page() {
     const [randomRaceData, setRandomRaceData] = useState<Response>()
     const [hp] = useState(20);
+    const [viewInfo, setViewInfo] = useState<string[]>([]);
     const [userPt, setUserPt] = useState(0);
     const [aiPt, setAiPt] = useState(0);
     const [aiPredictionResult, setAiPredictionResult] = useState(false);
@@ -88,6 +89,16 @@ export default function Page() {
         setAnswer(true);
     };
 
+    function viewMoreInfo(horse: string) {
+        return () => {
+            if (viewInfo.includes(horse)) {
+                setViewInfo(viewInfo.filter(value => value !== horse))
+            } else {
+                setViewInfo([...viewInfo, horse])
+            }
+        }
+    }
+
     return (
         <div>
             <div>
@@ -149,17 +160,17 @@ export default function Page() {
                                                 <p className="text-4xl md:text-xl font-bold text-white mb-4">{randomRaceData.data.course}</p>
                                                 <a href={randomRaceData.data.url} className="text-blue-300 hover:text-blue-100 underline transition-colors duration-200">{randomRaceData.data.url}</a>
                                             </motion.div>
-                                            {randomRaceData.data.horse.map((horse, index) => {
+                                            {randomRaceData.data.horse.map((horse, _index) => {
                                                 return (
-                                                    <div key={index} >
+                                                    <div key={_index} >
                                                         <motion.div
                                                             initial={{ opacity: 0 }}
                                                             animate={{ opacity: 1 }}
                                                             transition={{ delay: 1, duration: 0.5 }}
                                                             className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl  mx-4"
                                                         >
-                                                            <h3 className='text-xl font-bold text-white'>{horse.horse}</h3>
-                                                            <div>
+                                                            <h3 className='text-xl font-bold text-white cursor-pointer' onClick={viewMoreInfo(horse.horse)}>{horse.horse}</h3>
+                                                            <div className={viewInfo.includes(horse.horse) ? "block" : "hidden"}>
                                                                 <p>枠: {horse.waku}</p>
                                                                 <p>馬番: {horse.umaban}</p>
                                                                 <p>年齢: {horse.age}</p>
