@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react"
 
 import type { Response } from "@/app/api/ranking/route";
