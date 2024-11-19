@@ -1,7 +1,8 @@
 "use client"
 import { useEffect, useState } from "react"
-import { Activity, ArrowDown, HomeIcon, Link } from "lucide-react";
+import { Activity, ArrowDown, HomeIcon } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 import type { Response } from "@/app/api/horse/route"
 
@@ -88,27 +89,25 @@ export default function Page({ params }: { params: { name: string } }) {
                                 <h2 className="text-3xl font-bold text-white mb-6 text-center">{name}</h2>
                                 {data.map((horse, index) => (
                                     <div key={index}>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-[80px]">
                                             <div className="space-y-4">
                                                 <InfoItem label="レース名" value={horse.title} />
                                                 <InfoItem label="着順" value={horse.rank} />
                                                 <InfoItem label="騎手名" value={horse.jockey} />
                                                 <InfoItem label="調教師名" value={horse.trainer} />
                                                 <InfoItem label="タイム" value={horse.time} />
-                                            </div>
-                                            <div className="space-y-4">
                                                 <InfoItem label="負担重量" value={`${horse.weight}kg`} />
                                                 <InfoItem label="枠" value={horse.waku} />
                                                 <InfoItem label="馬番" value={horse.umaban} />
+                                            </div>
+                                            <div className="space-y-4">
                                                 <InfoItem label="性齢" value={horse.age} />
                                                 <InfoItem label="着差" value={horse.margin} />
                                                 <InfoItem label="コーナー通過順位" value={`${horse.corner.join('-')}`} />
+                                                <InfoItem label="推定上り" value={`${horse.f_time}秒`} />
+                                                <InfoItem label="馬体重" value={`${horse.h_weight}kg (${horse.h_weight_zougen})`} />
+                                                <InfoItem label="単勝人気" value={horse.pop} />
                                             </div>
-                                        </div>
-                                        <div className="mt-8 space-y-4">
-                                            <InfoItem label="推定上り" value={`${horse.f_time}秒`} />
-                                            <InfoItem label="馬体重" value={`${horse.h_weight}kg (${horse.h_weight_zougen})`} />
-                                            <InfoItem label="単勝人気" value={horse.pop} />
                                         </div>
                                     </div>
                                 ))}
