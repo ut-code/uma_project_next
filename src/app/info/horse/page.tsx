@@ -109,8 +109,8 @@ export default function Home() {
                       href={`/info/horse/${horse}`}
                       className="flex items-center p-2 rounded-md  bg-opacity-50 hover:bg-opacity-70 transition-colors duration-200"
                     >
-                      <h3 className="text-xl font-semibold text-white mb-3">{horse}</h3>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      <h3 className="text-xl font-semibold text-white mr-3">{horse}</h3>
+                      <div>
                         <p>{data.length}個のレース(この馬が出ている物)を学習済み</p>
                       </div>
                     </Link>
