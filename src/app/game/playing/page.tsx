@@ -9,6 +9,8 @@ import type { Horse, Response } from "@/app/api/game/route";
 export default function Page() {
     const [randomRaceData, setRandomRaceData] = useState<Response>()
     const [hp, setHp] = useState(20);
+    const [score, setScore] = useState(0);
+    const [nextStage, setNextStage] = useState(false);
     const [viewInfo, setViewInfo] = useState<string[]>([]);
     const [userPt, setUserPt] = useState(0);
     const [aiPt, setAiPt] = useState(0);
@@ -98,8 +100,11 @@ export default function Page() {
         setAiPt(ai);
         setUserPt(user);
         setHp(culcHp());
+        setScore(score + userPt);
+
         setAiPredictionResult(true);
         setAnswer(true);
+        setNextStage(true);
     };
 
     function viewMoreInfo(horse: string) {
@@ -112,6 +117,9 @@ export default function Page() {
         }
     }
 
+    function gotoNextStage() {}
+    function end() {}
+
     return (
         <div>
             <div>
@@ -122,6 +130,7 @@ export default function Page() {
                 </div>
                 <div className="fixed bottom-3 right-3">
                     <p className="text-white">HP: {hp}</p>
+                    <p className="text-white">SCORE: {score}</p>
                 </div>
                 <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-l from-green-900 to-green-600">
                     {(() => {
@@ -307,15 +316,16 @@ export default function Page() {
                                             </div>
                                         </motion.div>
                                     </div>
-                                    <br />
-                                    <Link
-                                        href="/game/playing"
-                                        className="max-w-xl w-full text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105 mt-5"
-                                    >
-                                        次へ進む
-                                    </Link>
-                                    <br></br>
-                                    <br></br>
+                                    <div className={nextStage ? "block" : "hidden"}>
+                                        <button
+                                            className="max-w-xl w-full text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105 mt-5"
+                                            onClick={gotoNextStage}
+                                        >次のゲームへ進む</button>
+                                        <button
+                                            className="max-w-xl w-full text-center font-bold bg-white text-green-800 border border-green-800 rounded-lg p-4 transition transform hover:scale-105 mt-5"
+                                            onClick={end}
+                                        >ここでゲームをやめる</button>
+                                    </div>
                                 </div>
                             )
                         } else {
