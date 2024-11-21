@@ -63,7 +63,7 @@ export default function Game() {
           className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl w-full mx-4"
         >
           <h1 className="text-2xl font-bold text-white mb-4">ランキング</h1>
-          <p className="text-lg md:text-base font-bold text-white mb-4">ランキングは<Link href="/game/ranking" target="_blank" rel="noopener noreferrer">こちら</Link>から見ることが出来ます。</p>
+          <p className="text-lg md:text-base font-bold text-white  mb-4">ランキングは<Link href="/game/ranking" target="_blank" rel="noopener noreferrer" className=" font-black underline text-blue-800">こちら</Link>から見ることが出来ます。</p>
         </motion.div>
 
         <motion.div

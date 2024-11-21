@@ -202,52 +202,59 @@ export default function Page() {
                                         <br></br>
                                         <motion.div
                                             initial={{ opacity: 0 }}
-                                            animate={{ opacity: 10 }}
+                                            animate={{ opacity: 1 }}
                                             transition={{ delay: 1, duration: 0.5 }}
-                                            className="mt-4 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-3xl  mx-4"
+                                            className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl w-full mx-4"
                                         >
-                                            <p className="text-lg md:text-base font-bold text-white">ルール説明は<Link target="_blank" rel="noopener noreferrer" className="underline" href="/game/rule">こちら</Link></p>
-                                        </motion.div>
-                                        <div>
                                             <motion.div
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 10 }}
                                                 transition={{ delay: 1, duration: 0.5 }}
                                                 className="mt-4 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-3xl  mx-4"
                                             >
-                                                <p className="text-4xl md:text-2xl font-bold text-white mb-4">{randomRaceData.data.title}</p>
-                                                <p className="text-4xl md:text-xl font-bold text-white mb-4">{randomRaceData.data.course}</p>
-                                                <a href={randomRaceData.data.url} className="text-blue-300 hover:text-blue-100 underline transition-colors duration-200">{randomRaceData.data.url}</a>
+                                                <p className="text-lg md:text-base font-bold text-white">ルール説明は<Link target="_blank" rel="noopener noreferrer" className="underline" href="/game/rule">こちら</Link></p>
                                             </motion.div>
-                                            {randomRaceData.data.horse.sort((a, b) => a.umaban - b.umaban).map((horse, _index) => {
-                                                return (
-                                                    <div key={_index} >
-                                                        <motion.div
-                                                            initial={{ opacity: 0 }}
-                                                            animate={{ opacity: 1 }}
-                                                            transition={{ delay: 1, duration: 0.5 }}
-                                                            className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl  mx-4"
-                                                        >
-                                                            <h3 className='text-xl font-bold text-white cursor-pointer' onClick={viewMoreInfo(horse.horse)}>{horse.horse}</h3>
-                                                            <div className={viewInfo.includes(horse.horse) ? "block" : "hidden"}>
-                                                                <p>枠: {horse.waku}</p>
-                                                                <p>馬番: {horse.umaban}</p>
-                                                                <p>年齢: {horse.age}</p>
-                                                                <p>斤量: {horse.weight}</p>
-                                                                <p>騎手: {horse.jockey}</p>
-                                                                <p>タイム: {horse.time}</p>
-                                                                <p>差: {horse.margin || "なし"}</p>
-                                                                <p>馬体重: {horse.h_weight}kg</p>
-                                                                <p>増減: {horse.h_weight_zougen}kg</p>
-                                                                {/* <p>上がり3Fタイム: {horse.f_time}</p> */}
-                                                                <p>調教師: {horse.trainer}</p>
-                                                                <p>人気: {horse.pop}</p>
-                                                            </div>
-                                                        </motion.div>
-                                                    </div>
-                                                )
-                                            })}
-                                        </div>
+                                            <div>
+                                                <motion.div
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 10 }}
+                                                    transition={{ delay: 1, duration: 0.5 }}
+                                                    className="mt-4 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-3xl  mx-4"
+                                                >
+                                                    <p className="text-4xl md:text-2xl font-bold text-white mb-4">{randomRaceData.data.title}</p>
+                                                    <p className="text-4xl md:text-xl font-bold text-white mb-4">{randomRaceData.data.course}</p>
+                                                    <a href={randomRaceData.data.url} className="text-blue-300 hover:text-blue-100 underline transition-colors duration-200">{randomRaceData.data.url}</a>
+                                                </motion.div>
+                                                {randomRaceData.data.horse.sort((a, b) => a.umaban - b.umaban).map((horse, _index) => {
+                                                    return (
+                                                        <div key={_index} >
+                                                            <motion.div
+                                                                initial={{ opacity: 0 }}
+                                                                animate={{ opacity: 1 }}
+                                                                transition={{ delay: 1, duration: 0.5 }}
+                                                                className="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-xl max-w-2xl  mx-4"
+                                                            >
+                                                                <h3 className='text-xl font-bold text-white cursor-pointer' onClick={viewMoreInfo(horse.horse)}>{horse.horse}</h3>
+                                                                <div className={viewInfo.includes(horse.horse) ? "block" : "hidden"}>
+                                                                    <p>枠: {horse.waku}</p>
+                                                                    <p>馬番: {horse.umaban}</p>
+                                                                    <p>年齢: {horse.age}</p>
+                                                                    <p>斤量: {horse.weight}</p>
+                                                                    <p>騎手: {horse.jockey}</p>
+                                                                    <p>タイム: {horse.time}</p>
+                                                                    <p>差: {horse.margin || "なし"}</p>
+                                                                    <p>馬体重: {horse.h_weight}kg</p>
+                                                                    <p>増減: {horse.h_weight_zougen}kg</p>
+                                                                    {/* <p>上がり3Fタイム: {horse.f_time}</p> */}
+                                                                    <p>調教師: {horse.trainer}</p>
+                                                                    <p>人気: {horse.pop}</p>
+                                                                </div>
+                                                            </motion.div>
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+                                        </motion.div>
                                     </div>
                                     <br></br>
                                     <br></br>

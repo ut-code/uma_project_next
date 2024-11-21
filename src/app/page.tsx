@@ -60,10 +60,7 @@ export default function HomePage() {
         <p className="text-white text-lg leading-relaxed mt-4">
           競馬AIでどのような情報を用いて予想を行なっているか詳しく知りたい場合は下記の&quot;Info Page&quot;から情報ページに飛んでください。
         </p>
-      </motion.div>
-
-      {/* Info Page Button */}
-      <motion.div
+        <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.5 }}
@@ -76,6 +73,10 @@ export default function HomePage() {
           Info Page
         </Link>
       </motion.div>
+      </motion.div>
+
+      {/* Info Page Button */}
+      
     </div>
   );
 }
