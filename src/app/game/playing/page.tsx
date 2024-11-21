@@ -82,7 +82,7 @@ export default function Page() {
     }
 
     function culcHp(user: number, ai: number): number {
-        const minus = user - ai;
+        const minus = ai - user;
         const content = hp - minus;
         if (content > 20) {
             return 20;
