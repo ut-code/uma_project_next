@@ -27,6 +27,7 @@ export default function Page({ params }: { params: { name: string } }) {
                 const data = races[name];
                 return (
                     <div>
+                        <title key="title">詳細情報 / 競馬AI</title>
                         <div className="fixed top-4 left-4"> {/* 画面の左上に固定 */}
                             <Link href="/" className="text-gray-800 hover:text-blue-600"> {/* ホームページへのリンク */}
                                 <HomeIcon className="w-8 h-8" /> {/* アイコンのサイズ設定 */}

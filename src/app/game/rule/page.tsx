@@ -7,6 +7,7 @@ import { HomeIcon } from "lucide-react";
 export default function Page() {
     return (
         <div>
+            <title key="title">ゲームルール / 競馬AI</title>
             <div className="fixed top-4 left-4"> {/* 画面の左上に固定 */}
                 <Link href="/game" className="text-gray-800 hover:text-blue-600"> {/* ホームページへのリンク */}
                     <HomeIcon className="w-8 h-8" /> {/* アイコンのサイズ設定 */}

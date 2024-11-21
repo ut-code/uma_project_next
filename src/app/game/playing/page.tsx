@@ -159,6 +159,7 @@ export default function Page() {
 
     return (
         <div>
+            <title key="title">ゲームをプレイ中 / 競馬AI</title>
             <div>
                 <div className="fixed top-4 left-4"> {/* 画面の左上に固定 */}
                     <Link href="/" className="text-gray-800 hover:text-blue-600"> {/* ホームページへのリンク */}

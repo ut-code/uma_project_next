@@ -26,6 +26,7 @@ export default function Page({ params }: { params: { name: string } }) {
             if (race.title === name) {
                 return (
                     <div>
+                        <title key="title">詳細情報 / 競馬AI</title>
                         <div className="fixed top-4 left-4"> {/* 画面の左上に固定 */}
                             <Link href="/" className="text-gray-800 hover:text-blue-600"> {/* ホームページへのリンク */}
                                 <HomeIcon className="w-8 h-8" /> {/* アイコンのサイズ設定 */}
@@ -68,7 +69,7 @@ export default function Page({ params }: { params: { name: string } }) {
                                     </Link>
                                 </motion.div>
                             </motion.div>
-            
+
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -78,7 +79,7 @@ export default function Page({ params }: { params: { name: string } }) {
                                 <ArrowDown className="w-8 h-8 mx-auto" />
                                 <p className="text-lg font-semibold">Learn More About The Races</p>
                             </motion.div>
-            
+
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
