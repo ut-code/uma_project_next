@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowDown, Activity } from "lucide-react";
+import { Activity } from "lucide-react";
 
 export default function HomePage() {
   return (
