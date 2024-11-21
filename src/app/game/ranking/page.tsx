@@ -24,6 +24,7 @@ export default function Page() {
 
     return (
         <div>
+            <title key="title">ゲームランキング / 競馬AI</title>
             <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-l from-green-900 to-green-600">
                 <br></br>
                 <br></br>
@@ -33,8 +34,6 @@ export default function Page() {
                     transition={{ duration: 0.5 }}
                     className="text-center p-10 bg-black bg-opacity-30 backdrop-blur-lg rounded-xl max-w-xl w-full mx-4"
                 >
-
-
                     <motion.h1
                         className="text-4xl md:text-5xl font-bold text-white mb-6"
 
